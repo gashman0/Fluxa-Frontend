@@ -1,6 +1,29 @@
-import React from "react";
+import { useState } from "react";
+import { useSignup } from "../network/auth/queries";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const { mutate } = useSignup();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  
+    e.preventDefault();
+    mutate(formData);
+  }
   return (
     <section className="w-full min-h-screen bg-black grid md:grid-cols-2">
       {/* LEFT SIDE */}
@@ -34,27 +57,36 @@ const Signup = () => {
           </h2>
 
           {/* FORM */}
-          <form className="mt-6 space-y-4">
+          <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
             <input
               type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
               placeholder="Full Name"
               className="w-full px-4 py-3 rounded-md bg-black border border-[#642409] text-white placeholder-gray-500 focus:outline-none"
             />
 
             <input
               type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               placeholder="Email"
               className="w-full px-4 py-3 rounded-md bg-black border border-[#642409] text-white placeholder-gray-500 focus:outline-none"
             />
 
             <input
               type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               placeholder="Password"
               className="w-full px-4 py-3 rounded-md bg-black border border-[#642409] text-white placeholder-gray-500 focus:outline-none"
             />
 
             {/* CTA */}
-            <button className="w-full bg-[#6B0B0C] hover:bg-[#4A0708] text-white py-3 rounded-md font-medium">
+            <button className="w-full bg-[#6B0B0C] hover:bg-[#4A0708] text-white py-3 rounded-md font-medium" type="submit">
               Sign Up
             </button>
           </form>
@@ -67,14 +99,17 @@ const Signup = () => {
           </div>
 
           {/* OAuth */}
-          <button className="w-full border border-[#642409] py-3 rounded-md text-gray-300 hover:text-white">
+          <button 
+            className="w-full border border-[#642409] py-3 rounded-md text-gray-300 hover:text-white"
+            
+          >
             Continue with Google
           </button>
 
           {/* Footer */}
           <p className="mt-6 text-center text-gray-400 text-sm">
             Already have an account?{" "}
-            <span className="text-white cursor-pointer">Login</span>
+            <span className="text-white cursor-pointer" onClick={() => navigate('/login')}>Login</span>
           </p>
         </div>
       </div>

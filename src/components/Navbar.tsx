@@ -6,7 +6,7 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-black border-b border-[#642409] px-6 py-4 flex items-center justify-between">
       {/* Left: Logo */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
         <img src="/logo-icon.svg" alt="Fluxa" className="w-8 h-8" />
         <span className="text-white font-semibold text-lg">Fluxa</span>
       </div>
@@ -27,14 +27,14 @@ const Navbar = () => {
       {/* Right: Actions */}
       <div className="flex items-center gap-4">
         <button 
-          className="text-gray-300 hover:text-white transition hidden md:block"
+          className="text-gray-300 hover:text-white transition hidden md:block cursor-pointer"
           onClick={() => navigate('/login')}
         >
           Login
         </button>
 
         <button 
-          className="bg-[#6B0B0C] hover:bg-[#4A0708] text-white px-4 py-2 rounded-md text-sm"
+          className="bg-[#6B0B0C] hover:bg-[#4A0708] text-white px-4 py-2 rounded-md text-sm cursor-pointer"
           onClick={() => navigate('/signup')}
         >
           Get Started
