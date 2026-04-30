@@ -1,7 +1,7 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import queryKeys from "../query-keys";
-import type { signupPayload } from "./types";
-import { signup } from ".";
+import type { signupPayload, loginPayload } from "./types";
+import { signup, login } from ".";
 
 export const useSignup = () => {
     const queryClient = useQueryClient();
@@ -15,6 +15,18 @@ export const useSignup = () => {
             console.log("There was error");
         }
 
+    })
+}
+
+export const useLogin = () => {
+    return useMutation({
+        mutationFn: (payload: loginPayload) => login(payload),
+        onSuccess: () => {
+            console.log("Login successful");
+        },
+        onError: () => {
+            console.log("Login failed");
+        }
     })
 }
 
