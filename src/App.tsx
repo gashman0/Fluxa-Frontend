@@ -1,8 +1,10 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
+import LoggedInLayout from "./layouts/LoggedInLayout";
 import Index from "./pages/Index";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Dashboard from "./pages/dashboard";
 
 
 const router = createBrowserRouter(
@@ -12,6 +14,10 @@ const router = createBrowserRouter(
         <Route index element={<Index />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+      </Route>
+
+      <Route path="/home" element={<LoggedInLayout />}>
+        <Route index element={<Dashboard />} />
       </Route>
     </>
   )

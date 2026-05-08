@@ -1,4 +1,3 @@
-import { data } from "react-router-dom";
 import api from "../../api/axios";
 import routes from "../routes";
 import type{ signupPayload, loginPayload } from "./types";

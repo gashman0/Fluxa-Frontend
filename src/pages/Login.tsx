@@ -1,29 +1,45 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../network/auth/queries";
+import { useMe } from "../network/me/queries";
 
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
-  })
+    password: "",
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
-  }
+  };
 
-  const { mutate } = useLogin();
+  const {
+    mutate,
+    isSuccess: loginSuccess,
+    isPending: loginPending,
+    isError: loginError,
+  } = useLogin();
+
+  // const { data: user, isPending: mePending, isError: meError, isSuccess: meSuccess } = useMe();
+
+  // Redirect if login was successful
+  useEffect(() => {
+    if(loginSuccess){
+      navigate('/home')
+    }
+  }, [loginSuccess, navigate])
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate(formData);
-  }
+  };
+
   return (
     <section className="w-full min-h-screen bg-black grid md:grid-cols-2">
       {/* LEFT SIDE */}
@@ -82,11 +98,12 @@ const Login = () => {
             </div>
 
             {/* CTA */}
-            <button 
+            <button
               className="w-full bg-[#6B0B0C] hover:bg-[#4A0708] text-white py-3 rounded-md font-medium"
               type="submit"
+              disabled={loginPending}
             >
-              Login
+              {loginPending ? "Logging in" : "Login"}
             </button>
           </form>
 

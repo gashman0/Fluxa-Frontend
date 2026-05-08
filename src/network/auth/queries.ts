@@ -19,14 +19,13 @@ export const useSignup = () => {
 }
 
 export const useLogin = () => {
+    const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (payload: loginPayload) => login(payload),
-        onSuccess: () => {
-            console.log("Login successful");
-        },
-        onError: () => {
-            console.log("Login failed");
+        
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({queryKey: queryKeys.users.getMe})
         }
-    })
+    });
 }
 
