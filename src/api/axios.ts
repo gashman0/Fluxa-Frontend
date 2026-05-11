@@ -9,24 +9,20 @@ const api = axios.create({
 // Response interceptor and to check refresh token
 api.interceptors.response.use(
     (response) => response,
-    async(error) => {
+    async (error) => {
         const originalRequest = error.config;
 
-        if(
-            error.response?.status === 401 && 
-            !originalRequest._retry && 
+        if (
+            error.response?.status === 401 &&
+            !originalRequest._retry &&
             originalRequest.url !== "/refresh"
-        ){
+        ) {
             originalRequest._retry = true;
 
             try {
-                await axios.post(
-                    "http://localhost:8082/api/refresh",
-                    {},
-                    {withCredentials: true}
-                );
+                await api.post("/api/refresh");
 
-                return api(originalRequest); // retry original request
+                return api(originalRequest);
             } catch (error) {
                 return Promise.reject(error);
             }
