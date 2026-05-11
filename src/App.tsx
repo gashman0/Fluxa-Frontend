@@ -4,7 +4,7 @@ import LoggedInLayout from "./layouts/LoggedInLayout";
 import Index from "./pages/Index";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Dashboard";
 
 
 const router = createBrowserRouter(

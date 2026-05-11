@@ -17,3 +17,19 @@ export const login = async (payload: loginPayload) => {
 
     return response?.data;
 }
+
+export const logout = async () => {
+    const response = await api.post(
+        routes.auth.logout
+    );
+
+    return response?.data;
+}
+
+export const checkAuth = async () => {
+    const response = await api.get(
+        routes.auth.checkAuth,
+    );
+
+    return response?.data;
+}
