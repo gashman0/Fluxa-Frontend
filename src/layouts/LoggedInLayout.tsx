@@ -2,7 +2,6 @@ import React from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { useMe } from "../network/me/queries";
 
-
 const LoggedInLayout = () => {
   const {
     data: me,
@@ -11,21 +10,28 @@ const LoggedInLayout = () => {
     isSuccess: meSuccess,
   } = useMe();
 
-  if(mePending){
-    return(
-      <div>
-        Pending...
-      </div>
-    )
+  console.log({ me, meError, mePending });
+
+  if (mePending) {
+    return <div>Pending...</div>;
   }
 
-  if(meError || !me){
-    return <Navigate to={'/login'} replace/>
+  if (mePending) {
+    return <div>Loading...</div>;
   }
+
+  if (meError) {
+    return <div>Session recovery failed...</div>;
+  }
+
+  if (!me) {
+    return <Navigate to="/login" replace />;
+  }
+  console.log({ me, meError, mePending });
   return (
     <div>
-        {me?.name} <br />
-        {me?.email}
+      {me?.name} <br />
+      {me?.email}
       <Outlet />
     </div>
   );

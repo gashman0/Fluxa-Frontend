@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import api from "./api/axios";
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import LoggedInLayout from "./layouts/LoggedInLayout";
@@ -24,6 +26,37 @@ const router = createBrowserRouter(
 )
 
 const App = () => {
+    const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+
+    const restoreSession = async () => {
+
+      try {
+
+        // silently restore access token using refresh token
+        await api.post("/refresh");
+
+        console.log("Session restored");
+
+      } catch (error) {
+
+        console.log("No active session");
+
+      } finally {
+
+        setLoading(false);
+
+      }
+    };
+
+    restoreSession();
+
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <RouterProvider router={router} />
   )
