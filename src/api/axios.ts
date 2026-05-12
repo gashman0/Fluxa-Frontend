@@ -20,7 +20,7 @@ api.interceptors.response.use(
             originalRequest._retry = true;
 
             try {
-                await api.post("/api/refresh");
+                await api.post("/refresh");
 
                 return api(originalRequest);
             } catch (error) {
