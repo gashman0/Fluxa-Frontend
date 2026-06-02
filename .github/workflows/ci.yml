@@ -1,4 +1,4 @@
-  name: Fluxa CI
+name: Fluxa Frontend CI
 
 on:
   push:
@@ -12,13 +12,8 @@ on:
       - dev
 
 jobs:
-  frontend:
-    name: Frontend Build
+  build:
     runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: Fluxa-Frontend
 
     steps:
       - name: Checkout Repository
@@ -29,31 +24,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Frontend Dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build Frontend
-        run: npm run build
-
-  backend:
-    name: Backend Check
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: Fluxa-Backend
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install Backend Dependencies
-        run: npm install
-
-      - name: Run Backend Check
+      - name: Build App
         run: npm run build
