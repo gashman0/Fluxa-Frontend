@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
 import queryKeys from "../query-keys";
 import type { signupPayload, loginPayload } from "./types";
@@ -30,11 +31,13 @@ export const useLogin = () => {
 }
 
 export const useLogout = () => {
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: () => logout(),
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: queryKeys.auth.checkAuth})
+            await queryClient.invalidateQueries({queryKey: queryKeys.auth.checkAuth});
+            navigate('/')
         }
     })
 }

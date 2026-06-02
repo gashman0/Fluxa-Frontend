@@ -16,12 +16,8 @@ const LoggedInLayout = () => {
     return <div>Pending...</div>;
   }
 
-  if (mePending) {
-    return <div>Loading...</div>;
-  }
-
   if (meError) {
-    return <div>Session recovery failed...</div>;
+    return <Navigate to="/" replace />;
   }
 
   if (!me) {

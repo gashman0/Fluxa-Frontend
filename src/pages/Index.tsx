@@ -13,16 +13,16 @@ const Index = () => {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
-    return <div>Something went wrong</div>;
-  }
+  // if (isError) {
+  //   return <div>Something went wrong...</div>;
+  // }
 
   if (data?.authenticated) {
     return <Navigate to="/home" replace />;
   }
   return (
     <>
-      {isAuthenticated ? "Yeah" : "No"}
+      {/* {isAuthenticated ? "Yeah" : "No"} */}
       <Hero />
       <Body />
       <Section />
