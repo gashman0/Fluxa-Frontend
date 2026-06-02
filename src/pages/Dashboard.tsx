@@ -1,9 +1,23 @@
-import React from 'react'
+import React from "react";
+import { useLogout } from "../network/auth/queries";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  return (
-    <div>dashboard</div>
-  )
-}
+  const navigate = useNavigate();
 
-export default Dashboard
+  const { mutate } = useLogout();
+
+
+  const handleLogout = () => {
+    mutate();
+  };
+  
+  return (
+    <>
+      <div>dashboard</div>
+      <button onClick={handleLogout}>Logout</button>
+    </>
+  );
+};
+
+export default Dashboard;

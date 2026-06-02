@@ -122,7 +122,7 @@ const Login = () => {
           {/* Footer */}
           <p className="mt-6 text-center text-gray-400 text-sm">
             Don’t have an account?{" "}
-            <span className="text-white cursor-pointer">Sign up</span>
+            <span className="text-white cursor-pointer" onClick={() => navigate('/signup')}>Sign up</span>
           </p>
         </div>
       </div>

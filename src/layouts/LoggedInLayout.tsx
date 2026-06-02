@@ -1,18 +1,33 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { useMe } from "../network/me/queries";
-
 
 const LoggedInLayout = () => {
   const {
-    data: user,
+    data: me,
     isPending: mePending,
     isError: meError,
     isSuccess: meSuccess,
   } = useMe();
+
+  console.log({ me, meError, mePending });
+
+  if (mePending) {
+    return <div>Pending...</div>;
+  }
+
+  if (meError) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (!me) {
+    return <Navigate to="/login" replace />;
+  }
+  console.log({ me, meError, mePending });
   return (
     <div>
-        {user?.name}
+      {me?.name} <br />
+      {me?.email}
       <Outlet />
     </div>
   );
