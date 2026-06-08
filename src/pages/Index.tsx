@@ -1,16 +1,18 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import Body from "../components/Body";
-import Hero from "../components/Hero";
-import Section from "../components/Section";
+import Body from "../components/landingpage/Body";
+import Hero from "../components/landingpage/Hero";
+import Section from "../components/landingpage/Section";
 import { useCheckAuth } from "../network/auth/queries";
+import Preloader from "../components/ui/Preloader";
+
 
 const Index = () => {
   const { data, isError, isPending, isSuccess } = useCheckAuth();
   const isAuthenticated = data?.authenticated;
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
 
   // if (isError) {

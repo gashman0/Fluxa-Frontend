@@ -32,17 +32,17 @@ const Signup = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(107,11,12,0.25),transparent_50%)]" />
 
         {/* Content */}
-        <div className="relative z-10">
+        <div className="relative z-10 flex flex-col items-center">
           <div className="flex items-center gap-2 mb-6">
-            <img src="/logo-icon.svg" className="w-8 h-8" />
-            <span className="text-white text-xl font-semibold">Fluxa</span>
+            <img src="/Group.svg" className="w-50 h-50" />
+            {/* <span className="text-white text-xl font-semibold">Fluxa</span> */}
           </div>
 
-          <h2 className="text-3xl font-bold text-white leading-snug">
+          <h2 className="text-5xl font-bold text-white leading-snug">
             Discover better opportunities.
           </h2>
 
-          <p className="mt-4 text-gray-400 max-w-sm">
+          <p className="mt-4 text-gray-400">
             Join Fluxa and get a personalized feed of real job opportunities
             tailored to your skills.
           </p>
