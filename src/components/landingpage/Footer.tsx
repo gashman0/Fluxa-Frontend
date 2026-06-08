@@ -7,7 +7,7 @@ const Footer = () => {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <img src="/logo-icon.svg" className="w-8 h-8" />
+            <img src="/Group.svg" className="w-8 h-8" />
             <span className="text-white font-semibold text-lg">Fluxa</span>
           </div>
 

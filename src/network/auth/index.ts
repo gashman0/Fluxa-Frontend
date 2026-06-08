@@ -1,3 +1,4 @@
+// import { resolve } from "path";
 import api from "../../api/axios";
 import routes from "../routes";
 import type{ signupPayload, loginPayload } from "./types";
@@ -27,9 +28,33 @@ export const logout = async () => {
 }
 
 export const checkAuth = async () => {
-    const response = await api.get(
-        routes.auth.checkAuth,
-    );
+    const sleep = (ms: number) =>
+        new Promise((resolve) => setTimeout(resolve, ms));
 
-    return response?.data;
+    console.log("CHECK AUTH START");
+
+    const response = await api.get(routes.auth.checkAuth);
+
+    console.log("REQUEST FINISHED", response);
+
+    await sleep(10000);
+
+    console.log("SLEEP FINISHED");
+
+    return response.data;
 }
+
+// export const checkAuth = async () => {
+//     console.log("CHECK AUTH START");
+
+//     try {
+//         const response = await api.get(routes.auth.checkAuth);
+
+//         console.log("REQUEST FINISHED");
+
+//         return response.data;
+//     } catch (error) {
+//         console.log("CHECK AUTH ERROR", error);
+//         throw error;
+//     }
+// };

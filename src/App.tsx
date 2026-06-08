@@ -7,6 +7,10 @@ import Index from "./pages/Index";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import HomeFeed from "./pages/HomeFeed";
+import NotFound from "./pages/NotFound";
+import Preloader from "./components/ui/Preloader";
+
 
 
 const router = createBrowserRouter(
@@ -19,8 +23,11 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/home" element={<LoggedInLayout />}>
-        <Route index element={<Dashboard />} />
+        {/* <Route index element={<Dashboard />} /> */}
+        <Route index element={<HomeFeed />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </>
   )
 )
@@ -37,11 +44,11 @@ const App = () => {
         // silently restore access token using refresh token
         await api.post("/refresh");
 
-        console.log("Session restored");
+        // console.log("Session restored");
 
       } catch (error) {
 
-        console.log("No active session");
+        // console.log("No active session");
 
       } finally {
 
@@ -55,7 +62,7 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Preloader />;
   }
   return (
     <RouterProvider router={router} />
