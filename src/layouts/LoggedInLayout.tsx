@@ -2,17 +2,22 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useMe } from "../network/me/queries";
 import Leftbar from "../components/layouts/Leftbar";
 import Rightbar from "../components/layouts/Rightbar";
+import Preloader from "../components/ui/Preloader";
+
+
 
 const LoggedInLayout = () => {
-  const {
-    data: me,
-    isPending,
-    isError,
-  } = useMe();
+  console.log("LOGGEDINLAYOUT RENDER");
+  const { data: me, isPending, isError } = useMe();
 
   // Still checking auth state
+  // if (isPending) {
+  //   return null;
+  // }
+
   if (isPending) {
-    return null;
+    console.log("LOGGEDINLAYOUT PENDING");
+    return <Preloader />;
   }
 
   // User is not authenticated

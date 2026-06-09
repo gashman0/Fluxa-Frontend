@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../network/auth/queries";
-import { useMe } from "../network/me/queries";
+import Preloader from "../components/ui/Preloader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,19 +26,14 @@ const Login = () => {
     isError: loginError,
   } = useLogin();
 
-  // const { data: user, isPending: mePending, isError: meError, isSuccess: meSuccess } = useMe();
-
-  // Redirect if login was successful
-  useEffect(() => {
-    if(loginSuccess){
-      navigate('/home')
-    }
-  }, [loginSuccess, navigate])
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate(formData);
   };
+
+  // if (loginPending) {
+  //   return <Preloader />;
+  // }
 
   return (
     <section className="w-full min-h-screen bg-black grid md:grid-cols-2">
@@ -122,7 +117,12 @@ const Login = () => {
           {/* Footer */}
           <p className="mt-6 text-center text-gray-400 text-sm">
             Don’t have an account?{" "}
-            <span className="text-white cursor-pointer" onClick={() => navigate('/signup')}>Sign up</span>
+            <span
+              className="text-white cursor-pointer"
+              onClick={() => navigate("/signup")}
+            >
+              Sign up
+            </span>
           </p>
         </div>
       </div>
