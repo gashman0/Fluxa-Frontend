@@ -7,7 +7,9 @@ export const useMe = () => {
     return useQuery<MeResponse>({
         queryKey: [queryKeys.users.getMe],
         queryFn: me,
-        retry: 2,
+        retry: false,
+        staleTime: 1000 * 60 * 5,
+        refetchOnWindowFocus: false,
     });
 
 }

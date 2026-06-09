@@ -1,32 +1,30 @@
-import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useMe } from "../network/me/queries";
 import Leftbar from "../components/layouts/Leftbar";
 import Rightbar from "../components/layouts/Rightbar";
-import Preloader from "../components/ui/Preloader";
 
 const LoggedInLayout = () => {
   const {
     data: me,
-    isPending: mePending,
-    isError: meError,
-    isSuccess: meSuccess,
+    isPending,
+    isError,
   } = useMe();
 
-  console.log({ me, meError, mePending });
-
-  if (mePending) {
-    return <Preloader />;
+  // Still checking auth state
+  if (isPending) {
+    return null;
   }
 
-  if (meError) {
+  // User is not authenticated
+  if (isError) {
     return <Navigate to="/" replace />;
   }
 
+  // Extra safety check
   if (!me) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
-  console.log({ me, meError, mePending });
+
   return (
     <div className="min-h-screen bg-[#2D120D] text-white">
       <div className="flex h-screen">

@@ -28,33 +28,17 @@ export const logout = async () => {
 }
 
 export const checkAuth = async () => {
-    const sleep = (ms: number) =>
-        new Promise((resolve) => setTimeout(resolve, ms));
+    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    console.log("CHECK AUTH START");
+    try {
+        const response = await api.get(routes.auth.checkAuth);
 
-    const response = await api.get(routes.auth.checkAuth);
+        await sleep(3000);
 
-    console.log("REQUEST FINISHED", response);
+        return response.data;
+    } catch (error) {
+        await sleep(3000);
 
-    await sleep(10000);
-
-    console.log("SLEEP FINISHED");
-
-    return response.data;
+        throw error;
+    }
 }
-
-// export const checkAuth = async () => {
-//     console.log("CHECK AUTH START");
-
-//     try {
-//         const response = await api.get(routes.auth.checkAuth);
-
-//         console.log("REQUEST FINISHED");
-
-//         return response.data;
-//     } catch (error) {
-//         console.log("CHECK AUTH ERROR", error);
-//         throw error;
-//     }
-// };

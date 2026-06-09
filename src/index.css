@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: #2D120D;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -7,25 +14,4 @@
 .hide-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
-}
-
-@keyframes fluxa-loader {
-  0% {
-    transform: scale(0.95);
-    opacity: 0.85;
-  }
-
-  50% {
-    transform: scale(1.05);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scale(0.95);
-    opacity: 0.85;
-  }
-}
-
-.fluxa-loader {
-  animation: fluxa-loader 1.8s ease-in-out infinite;
 }
