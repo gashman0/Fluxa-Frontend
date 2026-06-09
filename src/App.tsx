@@ -1,17 +1,21 @@
-import { useState, useEffect } from "react";
-import api from "./api/axios";
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+} from "react-router-dom";
+
 import MainLayout from "./layouts/MainLayout";
 import LoggedInLayout from "./layouts/LoggedInLayout";
+
 import Index from "./pages/Index";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
 import HomeFeed from "./pages/HomeFeed";
 import NotFound from "./pages/NotFound";
+
 import Preloader from "./components/ui/Preloader";
-
-
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,50 +27,38 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/home" element={<LoggedInLayout />}>
-        {/* <Route index element={<Dashboard />} /> */}
         <Route index element={<HomeFeed />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
-    </>
-  )
-)
+    </>,
+  ),
+);
 
 const App = () => {
-    const [loading, setLoading] = useState(true);
+  const [showPreloader, setShowPreloader] = useState(false);
 
   useEffect(() => {
+    const hasSeenPreloader = sessionStorage.getItem("fluxa-preloader");
 
-    const restoreSession = async () => {
+    if (!hasSeenPreloader) {
+      setShowPreloader(true);
 
-      try {
+      const timer = setTimeout(() => {
+        setShowPreloader(false);
 
-        // silently restore access token using refresh token
-        await api.post("/refresh");
+        sessionStorage.setItem("fluxa-preloader", "true");
+      }, 4000);
 
-        // console.log("Session restored");
-
-      } catch (error) {
-
-        // console.log("No active session");
-
-      } finally {
-
-        setLoading(false);
-
-      }
-    };
-
-    restoreSession();
-
+      return () => clearTimeout(timer);
+    }
   }, []);
 
-  if (loading) {
+  if (showPreloader) {
     return <Preloader />;
   }
-  return (
-    <RouterProvider router={router} />
-  )
-}
 
-export default App
+  return <RouterProvider router={router} />;
+};
+
+export default App;
