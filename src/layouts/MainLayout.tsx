@@ -3,12 +3,13 @@ import { Outlet, Navigate } from "react-router-dom";
 import Navbar from "../components/landingpage/Navbar";
 import Footer from "../components/landingpage/Footer";
 import { useMe } from "../network/me/queries";
+import Preloader from "../components/ui/Preloader";
 
 const MainLayout = () => {
   const { data: me, isPending } = useMe();
 
   if (isPending) {
-    return null;
+    return <Preloader />;
   }
 
   if (me) {

@@ -3,21 +3,19 @@ import { useMe } from "../network/me/queries";
 import Leftbar from "../components/layouts/Leftbar";
 import Rightbar from "../components/layouts/Rightbar";
 import Preloader from "../components/ui/Preloader";
-
-
+import Loader from "../components/ui/Loader";
 
 const LoggedInLayout = () => {
-  console.log("LOGGEDINLAYOUT RENDER");
   const { data: me, isPending, isError } = useMe();
+  console.log("ME QUERY", {
+    me,
+    isPending,
+    isError,
+  });
 
   // Still checking auth state
-  // if (isPending) {
-  //   return null;
-  // }
-
   if (isPending) {
-    console.log("LOGGEDINLAYOUT PENDING");
-    return <Preloader />;
+    return <Loader />;
   }
 
   // User is not authenticated
