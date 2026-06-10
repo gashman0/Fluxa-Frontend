@@ -48,7 +48,7 @@ const App = () => {
         setShowPreloader(false);
 
         sessionStorage.setItem("fluxa-preloader", "true");
-      }, 4000);
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
@@ -60,5 +60,7 @@ const App = () => {
 
   return <RouterProvider router={router} />;
 };
+
+
 
 export default App;
