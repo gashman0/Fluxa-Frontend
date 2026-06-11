@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSignup } from "../network/auth/queries";
 import { useNavigate } from "react-router-dom";
+import Spinner from "../components/ui/Spinner";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ const Signup = () => {
     name: "",
     email: "",
     password: "",
-  })
+  });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -17,13 +18,15 @@ const Signup = () => {
     }));
   };
 
-  const { mutate } = useSignup();
+  const { mutate, isPending } = useSignup();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  
     e.preventDefault();
     mutate(formData);
-  }
+  };
+
+  const isFormValid =
+    formData.name.trim() && formData.email.trim() && formData.password.trim();
   return (
     <section className="w-full min-h-screen bg-black grid md:grid-cols-2">
       {/* LEFT SIDE */}
@@ -86,8 +89,16 @@ const Signup = () => {
             />
 
             {/* CTA */}
-            <button className="w-full bg-[#6B0B0C] hover:bg-[#4A0708] text-white py-3 rounded-md font-medium" type="submit">
-              Sign Up
+            <button
+              type="submit"
+              disabled={!isFormValid || isPending}
+              className={`w-full py-3 rounded-md font-medium flex justify-center ${
+                !isFormValid || isPending
+                  ? "bg-[#B85A5B] cursor-not-allowed"
+                  : "bg-[#6B0B0C] hover:bg-[#4A0708] text-white"
+              }`}
+            >
+              {isPending ? <Spinner size={18} /> : "Sign Up"}
             </button>
           </form>
 
@@ -99,17 +110,19 @@ const Signup = () => {
           </div>
 
           {/* OAuth */}
-          <button 
-            className="w-full border border-[#642409] py-3 rounded-md text-gray-300 hover:text-white"
-            
-          >
+          <button className="w-full border border-[#642409] py-3 rounded-md text-gray-300 hover:text-white">
             Continue with Google
           </button>
 
           {/* Footer */}
           <p className="mt-6 text-center text-gray-400 text-sm">
             Already have an account?{" "}
-            <span className="text-white cursor-pointer" onClick={() => navigate('/login')}>Login</span>
+            <span
+              className="text-white cursor-pointer"
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </span>
           </p>
         </div>
       </div>

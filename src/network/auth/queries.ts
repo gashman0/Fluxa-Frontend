@@ -7,11 +7,13 @@ import { signup, login, checkAuth, logout } from ".";
 
 export const useSignup = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: (payload: signupPayload) => signup(payload),
     onSuccess: () => {
       console.log("Signup was successful");
+      navigate("/login");
     },
     onError: () => {
       console.log("There was error");

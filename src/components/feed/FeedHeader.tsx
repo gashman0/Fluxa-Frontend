@@ -5,15 +5,14 @@ const FeedHeader = () => {
     "Remote",
     "Full-Time",
     "Engineering",
-    "Nigeria",
   ];
 
   return (
     <div className="space-y-6">
       {/* Greeting */}
-      <div>
+      <div className="hidden lg:block"> 
         <h1 className="text-3xl font-bold text-[#FFF8CA]">
-          Good Evening 👋
+          Good Evening 
         </h1>
 
         <p className="mt-2 text-[#FFF8CA]/60">

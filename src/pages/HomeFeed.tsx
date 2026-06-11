@@ -4,7 +4,10 @@ import OpportunityCard from "../components/layouts/OpportunityCard";
 const HomeFeed = () => {
   return (
     <div className="p-8">
-      <FeedHeader />
+      <div className="">
+        <FeedHeader />
+      </div>
+      
       <div className="mt-8 space-y-5">
         <OpportunityCard />
         <OpportunityCard />
