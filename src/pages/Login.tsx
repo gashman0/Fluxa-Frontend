@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../network/auth/queries";
-import Preloader from "../components/ui/Preloader";
+import Spinner from "../components/ui/Spinner";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,12 +19,7 @@ const Login = () => {
     }));
   };
 
-  const {
-    mutate,
-    isSuccess: loginSuccess,
-    isPending: loginPending,
-    isError: loginError,
-  } = useLogin();
+  const { mutate, isPending: loginPending } = useLogin();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +29,10 @@ const Login = () => {
   // if (loginPending) {
   //   return <Preloader />;
   // }
+
+  const isFormValid = Boolean(
+    formData.email.trim() && formData.password.trim(),
+  );
 
   return (
     <section className="w-full min-h-screen bg-black grid md:grid-cols-2">
@@ -94,11 +93,15 @@ const Login = () => {
 
             {/* CTA */}
             <button
-              className="w-full bg-[#6B0B0C] hover:bg-[#4A0708] text-white py-3 rounded-md font-medium"
               type="submit"
-              disabled={loginPending}
+              disabled={!isFormValid || loginPending}
+              className={`w-full py-3 rounded-md font-medium flex justify-center ${
+                !isFormValid || loginPending
+                  ? "bg-[#B85A5B] cursor-not-allowed"
+                  : "bg-[#6B0B0C] hover:bg-[#4A0708] text-white"
+              }`}
             >
-              {loginPending ? "Logging in" : "Login"}
+              {loginPending ? <Spinner size={18} /> : "Login"}
             </button>
           </form>
 

@@ -48,7 +48,7 @@ const App = () => {
         setShowPreloader(false);
 
         sessionStorage.setItem("fluxa-preloader", "true");
-      }, 3000);
+      }, 100);
 
       return () => clearTimeout(timer);
     }
