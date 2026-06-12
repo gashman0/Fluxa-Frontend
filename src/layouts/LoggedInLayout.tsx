@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useMe } from "../network/me/queries";
 import Leftbar from "../components/layouts/Leftbar";
@@ -5,14 +6,25 @@ import Rightbar from "../components/layouts/Rightbar";
 import Loader from "../components/ui/Loader";
 import MobileHeader from "../components/layouts/MobileHeader";
 import MobileBottomNav from "../components/layouts/MobileBottomNav";
+import MobileDrawer from "../components/layouts/MobileDrawer";
 
 const LoggedInLayout = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const { data: me, isPending, isError } = useMe();
-  console.log("ME QUERY", {
-    me,
-    isPending,
-    isError,
-  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setDrawerOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Still checking auth state
   if (isPending) {
@@ -31,14 +43,17 @@ const LoggedInLayout = () => {
 
   return (
     <div className="h-full bg-[#2D120D] text-white">
+      {/* Mobile Drawer */}
+      <MobileDrawer isOpen={drawerOpen} onClose={() => setDrawerOpen(false)} />
+
       {/* Mobile Header */}
-      <div className="lg:hidden">
-        <MobileHeader />
+      <div className="xl:hidden">
+        <MobileHeader onMenuClick={() => setDrawerOpen(true)} />
       </div>
 
       <div className="flex h-[calc(100vh-64px)] lg:h-screen">
         {/* Sidebar */}
-        <aside className="w-[260px] border-r border-[#FFF8CA]/10 hidden lg:block overflow-y-auto hide-scrollbar">
+        <aside className="w-[260px] border-r border-[#FFF8CA]/10 hidden xl:block overflow-y-auto hide-scrollbar">
           <Leftbar />
         </aside>
 
@@ -54,7 +69,7 @@ const LoggedInLayout = () => {
       </div>
 
       {/* Mobile Bottom Navigation */}
-      <div className="lg:hidden">
+      <div className="xl:hidden">
         <MobileBottomNav />
       </div>
     </div>

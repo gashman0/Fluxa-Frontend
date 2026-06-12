@@ -19,27 +19,27 @@ const Leftbar = () => {
     },
     {
       name: "Discover",
-      path: "discover",
+      path: "/discover",
       icon: Compass,
     },
     {
       name: "Saved",
-      path: "saved",
+      path: "/saved",
       icon: Bookmark,
     },
     {
       name: "Applications",
-      path: "applications",
+      path: "/applications",
       icon: BriefcaseBusiness,
     },
     {
       name: "Profile",
-      path: "profile",
+      path: "/profile",
       icon: User,
     },
     {
       name: "Settings",
-      path: "settings",
+      path: "/settings",
       icon: Settings,
     },
   ];

@@ -1,4 +1,5 @@
 import { X } from "lucide-react";
+import { createPortal } from "react-dom";
 
 type ModalProps = {
   isOpen: boolean;
@@ -33,10 +34,10 @@ const Modal = ({
 }: ModalProps) => {
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div
       className="
-        fixed inset-0 z-50
+        fixed inset-0 z-[999]
         flex items-center justify-center
         bg-black/60
         backdrop-blur-sm
@@ -45,7 +46,7 @@ const Modal = ({
       {/* Modal Card */}
       <div
         className="
-          w-full max-w-md
+          w-[80%] max-w-md
           rounded-3xl
           border border-[#FFF8CA]/10
           bg-[#3A1A14]
@@ -115,7 +116,8 @@ const Modal = ({
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

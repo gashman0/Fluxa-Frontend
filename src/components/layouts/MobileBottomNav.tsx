@@ -1,4 +1,4 @@
-import { Home, Bookmark, BriefcaseBusiness, User } from "lucide-react";
+import { Home, Compass, MessageCircle, User } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 const MobileBottomNav = () => {
@@ -9,19 +9,19 @@ const MobileBottomNav = () => {
       path: "/home",
     },
     {
-      label: "Saved",
-      icon: Bookmark,
-      path: "/saved",
+      label: "Discover",
+      icon: Compass,
+      path: "/discover",
     },
     {
-      label: "Applications",
-      icon: BriefcaseBusiness,
-      path: "/applications",
+      label: "Messages",
+      icon: MessageCircle,
+      path: "/messages",
     },
     {
       label: "Profile",
-      icon: User,
       path: "/profile",
+      icon: User,
     },
   ];
 
@@ -32,7 +32,7 @@ const MobileBottomNav = () => {
         bottom-0
         left-0
         right-0
-        z-50
+        z-30
         border-t border-[#FFF8CA]/10
         bg-[#2D120D]
         backdrop-blur-md
@@ -50,18 +50,12 @@ const MobileBottomNav = () => {
                 `
                   flex flex-col items-center gap-1
                   transition-colors
-                  ${
-                    isActive
-                      ? "text-[#FFF8CA]"
-                      : "text-[#FFF8CA]/50"
-                  }
+                  ${isActive ? "text-[#FFF8CA]" : "text-[#FFF8CA]/50"}
                 `
               }
             >
               <Icon size={20} />
-              <span className="text-xs">
-                {item.label}
-              </span>
+              <span className="text-xs">{item.label}</span>
             </NavLink>
           );
         })}
