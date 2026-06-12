@@ -1,6 +1,10 @@
 import { Menu, Bell } from "lucide-react";
 
-const MobileHeader = () => {
+interface MobileHeaderProps {
+  onMenuClick: () => void;
+}
+
+const MobileHeader = ({onMenuClick}: MobileHeaderProps) => {
   return (
     <header
       className="
@@ -21,6 +25,7 @@ const MobileHeader = () => {
           text-[#FFF8CA]
           hover:bg-[#3A1A14]
         "
+        onClick={onMenuClick}
       >
         <Menu size={22} />
       </button>
