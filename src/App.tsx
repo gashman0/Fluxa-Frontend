@@ -13,6 +13,11 @@ import Index from "./pages/Index";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import HomeFeed from "./pages/HomeFeed";
+import Saved from "./pages/Saved";
+import Applications from "./pages/Applications";
+import Profile from "./pages/Profile";
+import Discover from "./pages/Discover";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
 import Preloader from "./components/ui/Preloader";
@@ -26,8 +31,13 @@ const router = createBrowserRouter(
         <Route path="/login" element={<Login />} />
       </Route>
 
-      <Route path="/home" element={<LoggedInLayout />}>
-        <Route index element={<HomeFeed />} />
+      <Route element={<LoggedInLayout />}>
+        <Route path="/home" element={<HomeFeed />} />
+        <Route path="/saved" element={<Saved />} />
+        <Route path="/applications" element={<Applications />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/discover" element={<Discover />} />
+        <Route path="/settings" element={<Settings />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
