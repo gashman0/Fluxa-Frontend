@@ -19,27 +19,27 @@ const Leftbar = () => {
     },
     {
       name: "Discover",
-      path: "/discover",
+      path: "discover",
       icon: Compass,
     },
     {
       name: "Saved",
-      path: "/saved",
+      path: "saved",
       icon: Bookmark,
     },
     {
       name: "Applications",
-      path: "/applications",
+      path: "applications",
       icon: BriefcaseBusiness,
     },
     {
       name: "Profile",
-      path: "/profile",
+      path: "profile",
       icon: User,
     },
     {
       name: "Settings",
-      path: "/settings",
+      path: "settings",
       icon: Settings,
     },
   ];
@@ -48,9 +48,12 @@ const Leftbar = () => {
     <div className="flex h-full flex-col px-5 py-6">
       {/* Logo */}
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-[#FFF8CA]">
-          Fluxa
-        </h1>
+        <div className="flex w-fit gap-4">
+          <img src="/Group.svg" alt="Fluxa Logo" className="h-8" />
+          <h1 className="text-2xl font-bold tracking-tight text-[#FFF8CA]">
+            Fluxa
+          </h1>
+        </div>
 
         <p className="mt-1 text-sm text-[#FFF8CA]/60">
           Opportunity Intelligence
@@ -66,6 +69,7 @@ const Leftbar = () => {
             <NavLink
               key={item.name}
               to={item.path}
+              end
               className={({ isActive }) =>
                 `
                 flex items-center gap-3 rounded-xl px-4 py-3
@@ -88,9 +92,7 @@ const Leftbar = () => {
 
       {/* Pro Card */}
       <div className="mt-auto rounded-2xl border border-[#FFF8CA]/10 bg-[#642409] p-5">
-        <h3 className="font-semibold text-[#FFF8CA]">
-          Upgrade to Fluxa Pro
-        </h3>
+        <h3 className="font-semibold text-[#FFF8CA]">Upgrade to Fluxa Pro</h3>
 
         <p className="mt-2 text-sm text-[#FFF8CA]/70">
           Unlock premium opportunity feeds, smart recommendations and advanced

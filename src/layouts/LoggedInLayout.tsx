@@ -30,7 +30,7 @@ const LoggedInLayout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#2D120D] text-white">
+    <div className="h-full bg-[#2D120D] text-white">
       {/* Mobile Header */}
       <div className="lg:hidden">
         <MobileHeader />
@@ -38,7 +38,7 @@ const LoggedInLayout = () => {
 
       <div className="flex h-[calc(100vh-64px)] lg:h-screen">
         {/* Sidebar */}
-        <aside className="w-[260px] border-r border-[#FFF8CA]/10 hidden lg:block">
+        <aside className="w-[260px] border-r border-[#FFF8CA]/10 hidden lg:block overflow-y-auto hide-scrollbar">
           <Leftbar />
         </aside>
 
@@ -48,9 +48,9 @@ const LoggedInLayout = () => {
         </main>
 
         {/* Right Panel */}
-      <aside className="hidden xl:block border-l border-[#FFF8CA]/10">
-        <Rightbar />
-      </aside>
+        <aside className="hidden xl:block border-l border-[#FFF8CA]/10 overflow-y-auto hide-scrollbar">
+          <Rightbar />
+        </aside>
       </div>
 
       {/* Mobile Bottom Navigation */}
