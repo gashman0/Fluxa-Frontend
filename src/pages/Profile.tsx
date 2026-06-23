@@ -1,4 +1,7 @@
+import { useMe } from "../network/me/queries";
+
 const Profile = () => {
+  const {data} = useMe();
   const user = {
     name: "Gustavo Victor",
     title: "Frontend Developer",
@@ -47,7 +50,7 @@ const Profile = () => {
           </div>
 
           <h1 className="mt-4 text-3xl font-bold text-[#FFF8CA]">
-            {user.name}
+           {data?.name}
           </h1>
 
           <p className="mt-1 text-[#FFF8CA]/70">
@@ -59,7 +62,7 @@ const Profile = () => {
           </p>
 
           <p className="mt-1 text-sm text-[#FFF8CA]/50">
-            {user.email}
+            {data?.email} 
           </p>
         </div>
       </div>
