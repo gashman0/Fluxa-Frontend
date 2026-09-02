@@ -1,6 +1,31 @@
 import { Bookmark, MapPin, Clock3 } from "lucide-react";
+import type { Job } from "../../network/jobs/types";
 
-const OpportunityCard = () => {
+interface OpportunityCardProps {
+  job: Job;
+}
+
+const OpportunityCard = ({ job }: OpportunityCardProps) => {
+  const getTimeAgo = (date: string) => {
+    const now = new Date();
+    const published = new Date(date);
+
+    const diffInSeconds = Math.floor(
+      (now.getTime() - published.getTime()) / 1000
+    );
+
+    const minutes = Math.floor(diffInSeconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (minutes < 1) return "Just now";
+    if (minutes < 60) return `${minutes}m ago`;
+    if (hours < 24) return `${hours}h ago`;
+    if (days < 7) return `${days}d ago`;
+
+    return published.toLocaleDateString();
+  };
+
   return (
     <div
       className="
@@ -18,11 +43,11 @@ const OpportunityCard = () => {
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm text-[#FFF8CA]/70">
-            Google
+            {job.company}
           </p>
 
           <h2 className="mt-1 text-xl font-semibold text-white">
-            Senior Frontend Engineer
+            {job.title}
           </h2>
         </div>
 
@@ -43,45 +68,19 @@ const OpportunityCard = () => {
       <div className="mt-4 flex flex-wrap gap-4 text-sm text-[#FFF8CA]/60">
         <div className="flex items-center gap-1">
           <MapPin size={14} />
-          Remote
+          {job.location}
         </div>
 
         <div className="flex items-center gap-1">
           <Clock3 size={14} />
-          Full-Time
+          {getTimeAgo(job.publishedAt)}
         </div>
-      </div>
-
-      {/* Description */}
-      <p className="mt-5 leading-7 text-[#FFF8CA]/80">
-        We are looking for an experienced frontend engineer
-        to help build scalable products used by millions of
-        users worldwide.
-      </p>
-
-      {/* Skills */}
-      <div className="mt-5 flex flex-wrap gap-2">
-        {["React", "TypeScript", "Next.js"].map((skill) => (
-          <span
-            key={skill}
-            className="
-              rounded-full
-              bg-[#642409]
-              px-3
-              py-1
-              text-sm
-              text-[#FFF8CA]
-            "
-          >
-            {skill}
-          </span>
-        ))}
       </div>
 
       {/* Footer */}
       <div className="mt-6 flex items-center justify-between">
         <span className="text-sm text-[#FFF8CA]/50">
-          Posted 2h ago
+          Posted {getTimeAgo(job.publishedAt)}
         </span>
 
         <div className="flex gap-3">
@@ -98,7 +97,10 @@ const OpportunityCard = () => {
             Save
           </button>
 
-          <button
+          <a
+            href={job.url}
+            target="_blank"
+            rel="noopener noreferrer"
             className="
               rounded-xl
               bg-[#FFF8CA]
@@ -110,7 +112,7 @@ const OpportunityCard = () => {
             "
           >
             Apply Now
-          </button>
+          </a>
         </div>
       </div>
     </div>

@@ -9,7 +9,9 @@ const routes = {
 
     dashboard: {
         me: '/me',
-
+    },
+    job: {
+        jobs: '/jobs'
     }
 }
 

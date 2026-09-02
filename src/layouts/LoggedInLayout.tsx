@@ -29,6 +29,7 @@ const LoggedInLayout = () => {
 
   // Still checking auth state
   if (isPending) {
+    console.log("Page is pending")
     return <Loader />;
   }
 
