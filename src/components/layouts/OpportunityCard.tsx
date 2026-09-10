@@ -32,7 +32,7 @@ const OpportunityCard = ({ job }: OpportunityCardProps) => {
         rounded-2xl
         border border-[#FFF8CA]/10
         bg-[#3A1A14]
-        p-6
+        p-4
         transition-all
         duration-200
         hover:border-[#FFF8CA]/20
@@ -104,7 +104,7 @@ const OpportunityCard = ({ job }: OpportunityCardProps) => {
             className="
               rounded-xl
               bg-[#FFF8CA]
-              px-4
+              px-3
               py-2
               font-medium
               text-[#2D120D]

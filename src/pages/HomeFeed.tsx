@@ -6,7 +6,7 @@ const HomeFeed = () => {
   const { data: jobs, isPending, isError } = useJobs();
 
   return (
-    <div className="p-8">
+    <div className="p-4">
       <div className="">
         <FeedHeader />
       </div>
