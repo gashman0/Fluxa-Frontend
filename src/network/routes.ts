@@ -5,6 +5,8 @@ const routes = {
         login: '/login',
         checkAuth: '/checkAuth',
         logout: '/logout',
+
+        google: '/google'
     },
 
     dashboard: {

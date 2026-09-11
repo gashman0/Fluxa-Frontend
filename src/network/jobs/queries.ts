@@ -7,5 +7,8 @@ export const useJobs = () => {
     return useQuery<JobsResponse>({
         queryKey: [queryKeys.job.getJobs],
         queryFn: jobs,
+        staleTime: 5 * 60 * 1000,
+        gcTime: 30 * 60 * 1000,
+        
     })
 }

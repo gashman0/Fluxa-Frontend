@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useQueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import queryKeys from "../query-keys";
 import type { signupPayload, loginPayload } from "./types";
-import { signup, login, checkAuth, logout } from ".";
+import { signup, login, logout, googleAuth } from ".";
 
 
 export const useSignup = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   return useMutation({
@@ -37,6 +36,20 @@ export const useLogin = () => {
   });
 };
 
+export const useGoogleAuth = () => {
+  return useMutation({
+    mutationFn: (credential: string) => googleAuth(credential),
+
+    onSuccess: (data) => {
+      console.log("Google authentication successful:", data)
+    },
+
+    onError: (error) => {
+      console.error("Google authentication failed:", error);
+    },
+  });
+};
+
 export const useLogout = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -47,17 +60,5 @@ export const useLogout = () => {
 
       navigate("/");
     },
-  });
-};
-
-export const useCheckAuth = () => {
-  return useQuery({
-    queryKey: queryKeys.auth.checkAuth,
-    queryFn: checkAuth,
-    retry: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 30,
   });
 };
