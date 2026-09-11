@@ -19,6 +19,14 @@ export const login = async (payload: loginPayload) => {
     return response?.data;
 }
 
+export const googleAuth = async(credential: string) => {
+    const response = await api.post(
+        routes.auth.google, { credential }
+    );
+
+    return response.data;
+}
+
 export const logout = async () => {
     const response = await api.post(
         routes.auth.logout
@@ -27,18 +35,3 @@ export const logout = async () => {
     return response?.data;
 }
 
-export const checkAuth = async () => {
-    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-    try {
-        const response = await api.get(routes.auth.checkAuth);
-
-        await sleep(3000);
-
-        return response.data;
-    } catch (error) {
-        await sleep(3000);
-
-        throw error;
-    }
-}

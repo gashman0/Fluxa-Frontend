@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useSignup } from "../network/auth/queries";
+import { useState, useEffect, useRef } from "react";
+import { useSignup, useGoogleAuth } from "../network/auth/queries";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/ui/Spinner";
 
@@ -27,6 +27,36 @@ const Signup = () => {
 
   const isFormValid =
     formData.name.trim() && formData.email.trim() && formData.password.trim();
+
+  const googleAuthMutation = useGoogleAuth();
+
+  const googleButtonRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!window.google || !googleButtonRef.current) return;
+
+    const container = googleButtonRef.current;
+
+    window.google.accounts.id.initialize({
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+
+      callback: (response) => {
+        console.log("Google credential:", response.credential);
+
+        googleAuthMutation.mutate(response.credential);
+      },
+    });
+
+    const width = Math.min(container.clientWidth, 400);
+
+    window.google.accounts.id.renderButton(container, {
+      theme: "outline",
+      size: "large",
+      width,
+      text: "continue_with",
+    });
+  }, []);
+
   return (
     <section className="w-full min-h-screen bg-black grid md:grid-cols-2">
       {/* LEFT SIDE */}
@@ -110,9 +140,7 @@ const Signup = () => {
           </div>
 
           {/* OAuth */}
-          <button className="w-full border border-[#642409] py-3 rounded-md text-gray-300 hover:text-white">
-            Continue with Google
-          </button>
+          <div ref={googleButtonRef} className="w-full flex justify-center" />
 
           {/* Footer */}
           <p className="mt-6 text-center text-gray-400 text-sm">
