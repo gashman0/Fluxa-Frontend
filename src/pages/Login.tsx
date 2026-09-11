@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useLogin } from "../network/auth/queries";
+import { useLogin, useGoogleAuth } from "../network/auth/queries";
 import Spinner from "../components/ui/Spinner";
 
 const Login = () => {
@@ -21,6 +21,10 @@ const Login = () => {
 
   const { mutate, isPending: loginPending } = useLogin();
 
+  const { mutate: googleMutate, isPending: googlePending } = useGoogleAuth();
+
+  const googleButtonRef = useRef<HTMLDivElement>(null);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate(formData);
@@ -33,6 +37,27 @@ const Login = () => {
   const isFormValid = Boolean(
     formData.email.trim() && formData.password.trim(),
   );
+
+  useEffect(() => {
+    if (!window.google || !googleButtonRef.current) return;
+
+    window.google.accounts.id.initialize({
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+
+      callback: (response) => {
+        googleMutate(response.credential);
+      },
+    });
+
+    const width = Math.min(googleButtonRef.current.clientWidth, 400);
+
+    window.google.accounts.id.renderButton(googleButtonRef.current, {
+      theme: "outline",
+      size: "large",
+      width,
+      text: "continue_with",
+    });
+  }, [googleMutate]);
 
   return (
     <section className="w-full min-h-screen bg-black grid md:grid-cols-2">
@@ -113,9 +138,10 @@ const Login = () => {
           </div>
 
           {/* Google */}
-          <button className="w-full border border-[#642409] py-3 rounded-md text-gray-300 hover:text-white">
-            Continue with Google
-          </button>
+          <div
+            ref={googleButtonRef}
+            className="w-full flex justify-center overflow-hidden"
+          />
 
           {/* Footer */}
           <p className="mt-6 text-center text-gray-400 text-sm">

@@ -37,11 +37,18 @@ export const useLogin = () => {
 };
 
 export const useGoogleAuth = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (credential: string) => googleAuth(credential),
 
-    onSuccess: (data) => {
-      console.log("Google authentication successful:", data)
+    onSuccess: async () => {
+      await queryClient.refetchQueries({
+        queryKey: [queryKeys.users.getMe],
+      });
+
+      navigate("/home");
     },
 
     onError: (error) => {
