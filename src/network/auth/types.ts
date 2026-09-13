@@ -8,3 +8,7 @@ export interface loginPayload{
     email: string,
     password: string,
 }
+
+export interface forgottenPasswordPayload{
+    email: string,
+}

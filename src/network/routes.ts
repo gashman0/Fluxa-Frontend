@@ -3,10 +3,10 @@ const routes = {
     auth: {
         signup: '/signup',
         login: '/login',
-        checkAuth: '/checkAuth',
         logout: '/logout',
 
-        google: '/google'
+        google: '/google',
+        forgotPassword: "/forgot-password",
     },
 
     dashboard: {

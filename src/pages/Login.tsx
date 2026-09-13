@@ -111,9 +111,13 @@ const Login = () => {
 
             {/* Forgot password */}
             <div className="text-right text-sm">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <button
+                type="button"
+                onClick={() => navigate("/forgot-password")}
+                className="text-gray-400 hover:text-white"
+              >
                 Forgot password?
-              </a>
+              </button>
             </div>
 
             {/* CTA */}

@@ -12,6 +12,7 @@ import LoggedInLayout from "./layouts/LoggedInLayout";
 import Index from "./pages/Index";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 import HomeFeed from "./pages/HomeFeed";
 import Saved from "./pages/Saved";
 import Applications from "./pages/Applications";
@@ -33,8 +34,9 @@ const router = createBrowserRouter(
         errorElement={<ErrorPage />}
       >
         <Route index element={<Index />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Route>
 
       <Route
