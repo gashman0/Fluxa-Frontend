@@ -12,3 +12,8 @@ export interface loginPayload{
 export interface forgottenPasswordPayload{
     email: string,
 }
+
+export interface resetPasswordPayload{
+    token: string,
+    password: string,
+}

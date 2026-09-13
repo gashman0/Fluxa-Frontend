@@ -7,6 +7,7 @@ const routes = {
 
         google: '/google',
         forgotPassword: "/forgot-password",
+        resetPassword: "/reset-password",
     },
 
     dashboard: {
