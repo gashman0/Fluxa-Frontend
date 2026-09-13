@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import queryKeys from "../query-keys";
-import type { signupPayload, loginPayload, forgottenPasswordPayload } from "./types";
-import { signup, login, logout, googleAuth, forgotPassword } from ".";
+import type { signupPayload, loginPayload, forgottenPasswordPayload, resetPasswordPayload } from "./types";
+import { signup, login, logout, googleAuth, forgotPassword, resetPassword } from ".";
 
 
 
@@ -71,6 +71,22 @@ export const useForgotPassword = () => {
     },
   });
 
+};
+
+export const useResetPassword = () => {
+  // const navigate = useNavigate();
+
+  return useMutation({
+    mutationFn: (payload: resetPasswordPayload) => resetPassword(payload),
+
+    onSuccess: () => {
+      // navigate("/login");
+    },
+
+    onError: (error) => {
+      console.error("Password reset failed:", error);
+    },
+  });
 };
 
 export const useLogout = () => {

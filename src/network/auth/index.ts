@@ -1,7 +1,7 @@
 // import { resolve } from "path";
 import api from "../../api/axios";
 import routes from "../routes";
-import type{ signupPayload, loginPayload, forgottenPasswordPayload } from "./types";
+import type{ signupPayload, loginPayload, forgottenPasswordPayload, resetPasswordPayload } from "./types";
 
 export const signup = async (payload: signupPayload) => {
     const response = await api.post(
@@ -30,6 +30,14 @@ export const googleAuth = async(credential: string) => {
 export const forgotPassword = async(payload: forgottenPasswordPayload) => {
     const response = await api.post(
         routes.auth.forgotPassword, payload
+    );
+
+    return response?.data;
+}
+
+export const resetPassword = async(payload: resetPasswordPayload) => {
+    const response = await api.post(
+        routes.auth.resetPassword, payload
     );
 
     return response?.data;
