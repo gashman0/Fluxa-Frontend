@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { me } from ".";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { me, fluxa } from ".";
 import queryKeys from "../query-keys";
-import type{ MeResponse } from "./types";
+import type{ MeResponse, FluxaProPayload } from "./types";
 
 export const useMe = () => {
     return useQuery<MeResponse>({
@@ -12,4 +13,21 @@ export const useMe = () => {
         refetchOnWindowFocus: false,
     });
 
+}
+
+export const useFluxaPro = () => {
+    const navigate = useNavigate();
+
+    return useMutation({
+        mutationFn: () => fluxa(),
+
+        onSuccess: () => {
+            console.log("Payment Initiated successfully ");
+            
+        },
+
+        onError: () => {
+            console.log("There was an error")
+        },
+    })
 }

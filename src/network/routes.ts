@@ -4,7 +4,6 @@ const routes = {
         signup: '/signup',
         login: '/login',
         logout: '/logout',
-
         google: '/google',
         forgotPassword: "/forgot-password",
         resetPassword: "/reset-password",
@@ -12,10 +11,13 @@ const routes = {
 
     dashboard: {
         me: '/me',
+        fluxaPro: '/fluxa-pro'
     },
     job: {
         jobs: '/jobs'
     }
+
+
 }
 
 export default routes;
