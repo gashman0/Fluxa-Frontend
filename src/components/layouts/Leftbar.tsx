@@ -8,11 +8,12 @@ import {
   User,
   Settings,
   ArrowUpRight,
+  Check,
 } from "lucide-react";
 
 import Logout from "../ui/Logout";
 import Modal from "../ui/Modal";
-import { useFluxaPro } from "../../network/me/queries";
+import { useFluxaPro, useMe } from "../../network/me/queries";
 
 const Leftbar = () => {
   const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
@@ -50,16 +51,24 @@ const Leftbar = () => {
     },
   ];
 
+  const { data: me } = useMe();
+
   const { mutateAsync: initializePayment, isPending } = useFluxaPro();
 
-  const handleUpgrade = async () => {
-    console.log("Continue to payment clicked");
+  const isPro =
+    me?.subscription?.plan === "pro" &&
+    me?.subscription?.status === "active";
 
+  const handleUpgrade = async () => {
     try {
       const response = await initializePayment();
 
       const authorizationUrl = response?.data?.authorizationUrl;
-      console.log("This is the url to navigate to:", authorizationUrl)
+
+      if (!authorizationUrl) {
+        throw new Error("Payment authorization URL was not returned");
+      }
+
       window.location.href = authorizationUrl;
     } catch (error) {
       console.error("Payment initialization failed:", error);
@@ -115,30 +124,50 @@ const Leftbar = () => {
         </nav>
 
         {/* Pro Card */}
-        <div className="mt-auto rounded-2xl border border-[#FFF8CA]/10 bg-[#642409] p-5">
-          <h3 className="font-semibold text-[#FFF8CA]">Upgrade to Fluxa Pro</h3>
+        {isPro ? (
+          <div className="mt-auto rounded-2xl border border-[#FFF8CA]/10 bg-[#642409] p-5">
+            <div className="flex items-center gap-2">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#FFF8CA]">
+                <Check size={15} className="text-[#2D120D]" />
+              </div>
 
-          <p className="mt-2 text-sm text-[#FFF8CA]/70">
-            Unlock premium opportunity feeds, smart recommendations and advanced
-            filters.
-          </p>
+              <h3 className="font-semibold text-[#FFF8CA]">
+                Fluxa Pro
+              </h3>
+            </div>
 
-          <button
-            type="button"
-            onClick={() => setIsUpgradeModalOpen(true)}
-            className="
-              mt-4 flex w-full items-center justify-center gap-2
-              rounded-xl bg-[#FFF8CA]
-              px-4 py-3
-              font-medium
-              text-[#2D120D]
-              transition hover:opacity-90
-            "
-          >
-            Upgrade
-            <ArrowUpRight size={16} />
-          </button>
-        </div>
+            <p className="mt-3 text-sm text-[#FFF8CA]/70">
+              You're currently enjoying all Fluxa Pro features.
+            </p>
+          </div>
+        ) : (
+          <div className="mt-auto rounded-2xl border border-[#FFF8CA]/10 bg-[#642409] p-5">
+            <h3 className="font-semibold text-[#FFF8CA]">
+              Upgrade to Fluxa Pro
+            </h3>
+
+            <p className="mt-2 text-sm text-[#FFF8CA]/70">
+              Unlock premium opportunity feeds, smart recommendations and
+              advanced filters.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => setIsUpgradeModalOpen(true)}
+              className="
+                mt-4 flex w-full items-center justify-center gap-2
+                rounded-xl bg-[#FFF8CA]
+                px-4 py-3
+                font-medium
+                text-[#2D120D]
+                transition hover:opacity-90
+              "
+            >
+              Upgrade
+              <ArrowUpRight size={16} />
+            </button>
+          </div>
+        )}
 
         <Logout />
       </div>
@@ -150,8 +179,9 @@ const Leftbar = () => {
         onClose={() => setIsUpgradeModalOpen(false)}
         title="Upgrade to Fluxa Pro"
         description="Unlock more powerful tools to help you discover the right opportunities."
-        confirmText="Continue to payment"
+        confirmText={isPending ? "Initializing..." : "Continue to payment"}
         cancelText="Maybe later"
+        isLoading={isPending}
       >
         <div className="space-y-5">
           {/* Benefits */}
@@ -172,7 +202,9 @@ const Leftbar = () => {
           <div className="border-t border-[#FFF8CA]/10 pt-4">
             <p className="text-sm text-[#FFF8CA]/60">Fluxa Pro</p>
 
-            <p className="mt-1 text-2xl font-semibold text-[#FFF8CA]">₦500</p>
+            <p className="mt-1 text-2xl font-semibold text-[#FFF8CA]">
+              ₦500
+            </p>
           </div>
         </div>
       </Modal>

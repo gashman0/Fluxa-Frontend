@@ -3,6 +3,10 @@
 export interface MeResponse{
     name: string,
     email: string,
+    subscription: {
+        plan: string,
+        status: string,
+    }
 }
 
 export interface FluxaProPayload{
