@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { useSignup, useGoogleAuth } from "../network/auth/queries";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/ui/Spinner";
+import { Eye, EyeOff } from "lucide-react";
 
 const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -18,7 +20,7 @@ const Signup = () => {
     }));
   };
 
-  const { mutate, isPending } = useSignup();
+  const { mutate, isPending, isError, error } = useSignup();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -109,14 +111,32 @@ const Signup = () => {
               className="w-full px-4 py-3 rounded-md bg-black border border-[#642409] text-white placeholder-gray-500 focus:outline-none"
             />
 
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Password"
-              className="w-full px-4 py-3 rounded-md bg-black border border-[#642409] text-white placeholder-gray-500 focus:outline-none"
-            />
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Password"
+                className="w-full px-4 py-3 pr-12 rounded-md bg-black border border-[#642409] text-white placeholder-gray-500 focus:outline-none"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+              </button>
+            </div>
+
+            {isError && (
+              <div className="mt-4 rounded-md border border-red-500/30 bg-red-500/10 px-4 py-3 text-center text-sm text-red-400">
+                {error.response?.data?.message ||
+                  "Something went wrong. Please try again."}
+              </div>
+            )}
 
             {/* CTA */}
             <button
