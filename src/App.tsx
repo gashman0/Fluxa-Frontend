@@ -21,6 +21,7 @@ import Profile from "./pages/Profile";
 import Discover from "./pages/Discover";
 import Settings from "./pages/Settings";
 import Messages from "./pages/Messages";
+import PaymentCallback from "./pages/PaymentCallback";
 import NotFound from "./pages/NotFound";
 import ErrorPage from "./pages/ErrorPage";
 
@@ -29,11 +30,7 @@ import Preloader from "./components/ui/Preloader";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route
-        path="/"
-        element={<MainLayout />}
-        errorElement={<ErrorPage />}
-      >
+      <Route path="/" element={<MainLayout />} errorElement={<ErrorPage />}>
         <Route index element={<Index />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
@@ -41,10 +38,7 @@ const router = createBrowserRouter(
         <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Route>
 
-      <Route
-        element={<LoggedInLayout />}
-        errorElement={<ErrorPage />}
-      >
+      <Route element={<LoggedInLayout />} errorElement={<ErrorPage />}>
         <Route path="/home" element={<HomeFeed />} />
         <Route path="/saved" element={<Saved />} />
         <Route path="/applications" element={<Applications />} />
@@ -52,11 +46,13 @@ const router = createBrowserRouter(
         <Route path="/discover" element={<Discover />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/messages" element={<Messages />} />
+
+        <Route path="/home/payment/callback" element={<PaymentCallback />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
-    </>
-  )
+    </>,
+  ),
 );
 
 const App = () => {
@@ -84,7 +80,5 @@ const App = () => {
 
   return <RouterProvider router={router} />;
 };
-
-
 
 export default App;
