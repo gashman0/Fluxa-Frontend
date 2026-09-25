@@ -3,13 +3,18 @@ import { useQueryClient, useMutation } from "@tanstack/react-query";
 import queryKeys from "../query-keys";
 import type { signupPayload, loginPayload, forgottenPasswordPayload, resetPasswordPayload } from "./types";
 import { signup, login, logout, googleAuth, forgotPassword, resetPassword } from ".";
+import { AxiosError } from "axios";
 
 
 
 export const useSignup = () => {
   const navigate = useNavigate();
 
-  return useMutation({
+  return useMutation<
+    any,
+    AxiosError<{message: string}>,
+    signupPayload
+  >({
     mutationFn: (payload: signupPayload) => signup(payload),
     onSuccess: () => {
       console.log("Signup was successful");
@@ -24,7 +29,12 @@ export const useSignup = () => {
 export const useLogin = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  return useMutation({
+
+  return useMutation<
+    any,
+    AxiosError<{message: string}>,
+    loginPayload
+  >({
     mutationFn: (payload: loginPayload) => login(payload),
 
     onSuccess: async () => {
