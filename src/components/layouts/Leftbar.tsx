@@ -56,8 +56,7 @@ const Leftbar = () => {
   const { mutateAsync: initializePayment, isPending } = useFluxaPro();
 
   const isPro =
-    me?.subscription?.plan === "pro" &&
-    me?.subscription?.status === "active";
+    me?.subscription?.plan === "pro" && me?.subscription?.status === "active";
 
   const handleUpgrade = async () => {
     try {
@@ -77,7 +76,15 @@ const Leftbar = () => {
 
   return (
     <>
-      <div className="flex h-full flex-col px-5 py-6">
+      <div
+        className="
+    relative z-10
+    flex h-full min-h-0 flex-col
+    overflow-y-auto overscroll-y-contain
+    px-5 py-6
+    pb-[calc(1.5rem+env(safe-area-inset-bottom))]
+  "
+      >
         {/* Logo */}
         <div>
           <div className="flex w-fit gap-4">
@@ -131,9 +138,7 @@ const Leftbar = () => {
                 <Check size={15} className="text-[#2D120D]" />
               </div>
 
-              <h3 className="font-semibold text-[#FFF8CA]">
-                Fluxa Pro
-              </h3>
+              <h3 className="font-semibold text-[#FFF8CA]">Fluxa Pro</h3>
             </div>
 
             <p className="mt-3 text-sm text-[#FFF8CA]/70">
@@ -155,13 +160,13 @@ const Leftbar = () => {
               type="button"
               onClick={() => setIsUpgradeModalOpen(true)}
               className="
-                mt-4 flex w-full items-center justify-center gap-2
-                rounded-xl bg-[#FFF8CA]
-                px-4 py-3
-                font-medium
-                text-[#2D120D]
-                transition hover:opacity-90
-              "
+    relative z-20 pointer-events-auto touch-manipulation
+    mt-4 flex w-full items-center justify-center gap-2
+    rounded-xl bg-[#FFF8CA]
+    px-4 py-3
+    font-medium text-[#2D120D]
+    transition hover:opacity-90 active:scale-[0.98]
+  "
             >
               Upgrade
               <ArrowUpRight size={16} />
@@ -169,7 +174,9 @@ const Leftbar = () => {
           </div>
         )}
 
-        <Logout />
+        <div className="mt-6 shrink-0">
+          <Logout />
+        </div>
       </div>
 
       {/* Upgrade Modal */}
@@ -202,9 +209,7 @@ const Leftbar = () => {
           <div className="border-t border-[#FFF8CA]/10 pt-4">
             <p className="text-sm text-[#FFF8CA]/60">Fluxa Pro</p>
 
-            <p className="mt-1 text-2xl font-semibold text-[#FFF8CA]">
-              ₦500
-            </p>
+            <p className="mt-1 text-2xl font-semibold text-[#FFF8CA]">₦500</p>
           </div>
         </div>
       </Modal>
