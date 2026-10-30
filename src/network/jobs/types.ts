@@ -43,8 +43,23 @@ export interface Job {
   updatedAt: string;
 }
 
+export interface pagination {
+ page: number;
+ limit: number;
+ totalJobs: number;
+ totalPages: number;
+ NextPage: boolean;
+ PreviousPage: boolean;
+}
+
 export interface JobsResponse {
   success: boolean;
   count: number;
   jobs: Job[];
+  pagination: pagination,
+}
+
+export interface JobsPayload {
+  page: number;
+  limit: number;
 }
