@@ -14,7 +14,7 @@ const Hero = () => {
         {/* LEFT */}
         <div>
           <h1 className="text-4xl md:text-6xl font-bold text-white leading-tight">
-            Find real job opportunities — faster.
+            Find real job opportunities — faster. ON Dev
           </h1>
 
           <p className="mt-6 text-gray-400 text-lg max-w-lg">
