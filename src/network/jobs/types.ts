@@ -62,4 +62,5 @@ export interface JobsResponse {
 export interface JobsPayload {
   page: number;
   limit: number;
+  search?: string;
 }

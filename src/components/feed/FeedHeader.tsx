@@ -1,6 +1,11 @@
 import { Search } from "lucide-react";
 
-const FeedHeader = () => {
+interface FeedHeaderProps {
+  search: string;
+  onSearchChange: (value: string) => void;
+}
+
+const FeedHeader = ({search, onSearchChange}: FeedHeaderProps) => {
   const filters = [
     "Remote",
     "Full-Time",
@@ -29,6 +34,8 @@ const FeedHeader = () => {
 
         <input
           type="text"
+          value={search}
+          onChange={(e) => onSearchChange(e.target.value)}
           placeholder="Search opportunities, companies, skills..."
           className="
             w-full
